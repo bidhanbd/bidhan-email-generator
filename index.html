@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bidhan Email Generator Pro</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #050505; --card-bg: #111; --accent-fire: #ff4500; --gold: #ffcc00; --text-color: #fff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; font-weight: 900; }
+        body { background-color: var(--bg-dark); color: var(--text-color); overflow-x: hidden; }
+
+        /* 🔥 FIRE POPUP 🔥 */
+        .popup-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95); display: flex; justify-content: center;
+            align-items: center; z-index: 9999; transition: 0.5s;
+        }
+        
+        .popup-box {
+            position: relative; width: 90%; max-width: 450px; background: #111;
+            padding: 40px; border-radius: 20px; text-align: center;
+            border: 3px solid transparent;
+            border-image: linear-gradient(to bottom right, #ff4500, #ffcc00, #ff0000);
+            border-image-slice: 1;
+            box-shadow: 0 0 30px #ff4500, inset 0 0 15px #ff4500;
+            animation: popup-entry 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        @keyframes popup-entry { 0% { transform: translateY(-100px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+
+        .popup-box h2 { color: var(--gold); margin-bottom: 15px; font-size: 28px; text-transform: uppercase; }
+        .popup-box p { color: #ccc; font-weight: 400; line-height: 1.6; margin-bottom: 25px; font-size: 15px; }
+        
+        .popup-btn {
+            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            color: white; border: none; padding: 15px 45px; border-radius: 10px;
+            cursor: pointer; font-size: 18px; text-transform: uppercase; font-weight: 900;
+        }
+
+        /* UI Styles */
+        .header { background-color: #111; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--accent-fire); }
+        .header-logo { font-size: 26px; color: var(--accent-fire); text-transform: uppercase; letter-spacing: 2px; }
+        .banner-wrapper { position: relative; width: 100%; height: 70px; background: #000; margin: 25px 0; display: flex; align-items: center; border-top: 2px solid var(--accent-fire); border-bottom: 2px solid var(--accent-fire); overflow: hidden; }
+        .scrolling-msg { width: 100%; white-space: nowrap; animation: scroll-text 15s linear infinite; font-size: 20px; color: var(--gold); text-transform: uppercase; }
+        @keyframes scroll-text { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .main-container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .settings-panel { background: var(--card-bg); padding: 30px; border-radius: 15px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; border: 2px solid #222; margin-bottom: 30px; }
+        .field-group label { display: block; margin-bottom: 10px; color: var(--accent-fire); font-size: 12px; }
+        input, select { width: 100%; background: #1a1a1a; color: #fff; border: 2px solid #333; padding: 14px; border-radius: 10px; outline: none; }
+        .btn-group { display: flex; flex-direction: column; gap: 15px; }
+        .gen-btn { width: 100%; padding: 22px; background: linear-gradient(45deg, #ff4500, #ff8c00); color: white; font-size: 20px; border: none; border-radius: 12px; cursor: pointer; text-transform: uppercase; }
+        .copy-all-btn { width: 100%; padding: 15px; background: #333; color: var(--gold); border: 2px solid var(--gold); border-radius: 10px; cursor: pointer; text-transform: uppercase; font-weight: 900; }
+        .email-list { display: flex; flex-direction: column; gap: 10px; margin-top: 25px; }
+        .email-item { background: #111; padding: 16px; border-radius: 10px; border: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
+        .email-text { color: #39ff14; font-family: 'Courier New', monospace; font-size: 17px; font-weight: 700; }
+        .copy-btn { background: var(--accent-fire); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; min-width: 90px; }
+        .copy-btn.copied { background: #28a745; }
+        .footer { text-align: center; padding: 50px 0; color: #444; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-box">
+            <h2>Welcome!</h2>
+            <p>Developed by <b>Bidhan</b>.<br><br>
+               Premium Email Generation Tool.<br>
+               Fast, Secure, and Global.
+            </p>
+            <button class="popup-btn" onclick="startExperience()">GET STARTED</button>
+        </div>
+    </div>
+
+    <audio id="voiceBN"><source src="https://files.catbox.moe/k6f77i.mp3" type="audio/mpeg"></audio>
+    <audio id="voiceEN"><source src="https://www.soundjay.com/buttons/beep-01a.mp3" type="audio/mpeg"></audio>
+
+    <div class="header">
+        <div class="header-logo">BIDHAN PRO</div>
+        <div style="font-size: 14px; color: #555;">V24.0</div>
+    </div>
+
+    <div class="banner-wrapper">
+        <div class="scrolling-msg">🚀 BIDHAN EMAIL GENERATOR PRO — GLOBAL EDITION — DEVELOPED BY BIDHAN 🚀</div>
+    </div>
+
+    <div class="main-container">
+        <div class="settings-panel">
+            <div class="field-group">
+                <label>QUANTITY</label>
+                <input type="number" id="qty" value="10" min="1" max="100">
+            </div>
+            <div class="field-group">
+                <label>COUNTRY</label>
+                <select id="country">
+                    <option value="bd">Bangladesh</option>
+                    <option value="usa">USA</option>
+                    <option value="india">India</option>
+                    <option value="pak">Pakistan</option>
+                    <option value="viet">Vietnam</option>
+                    <option value="indo">Indonesia</option>
+                </select>
+            </div>
+            <div class="field-group">
+                <label>DOMAIN</label>
+                <select id="domain">
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="yahoo.com">yahoo.com</option>
+                    <option value="outlook.com">outlook.com</option>
+                    <option value="random">Random Mix</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="gen-btn" onclick="generate()">Generate Emails</button>
+            <button class="copy-all-btn" id="copyAllBtn" onclick="copyAll()">Copy All Emails</button>
+        </div>
+
+        <div id="emailContainer" class="email-list"></div>
+        <div class="footer">DEVELOPED BY <b>BIDHAN</b> | 2026</div>
+    </div>
+
+    <script>
+        function startExperience() {
+            const userLang = navigator.language || navigator.userLanguage;
+            const voice = userLang.startsWith('bn') ? document.getElementById('voiceBN') : document.getElementById('voiceEN');
+            if (voice) voice.play().catch(e => console.log("Voice blocked"));
+            document.getElementById('popupOverlay').style.opacity = '0';
+            setTimeout(() => { document.getElementById('popupOverlay').style.display = 'none'; }, 500);
+        }
+
+        const nameData = {
+            bd: [{f:["nusrat","sadia","orthi"],l:["jahan","islam"]},{f:["ayaan","zafran","zarif"],l:["hossain","ahmed"]}],
+            usa: [{f:["olivia","emma","ava"],l:["smith","johnson"]},{f:["liam","noah","oliver"],l:["miller","davis"]}],
+            india: [{f:["kiara","myra","navya"],l:["sharma","singh"]},{f:["advik","kabir","sai"],l:["gupta","yadav"]}],
+            pak: [{f:["hooriya","iman","meher"],l:["khan","bibi"]},{f:["arsalan","zayan","hamza"],l:["qureshi","abbasi"]}],
+            viet: [{f:["linh","huong","phuong"],l:["nguyen","tran"]},{f:["nam","quan","huy"],l:["phan","vu"]}],
+            indo: [{f:["aura","bella","citra"],l:["sari","putri"]},{f:["agus","budi","candra"],l:["saputra","jaya"]}]
+        };
+
+        let currentEmails = [];
+        let copiedMails = new Set();
+
+        function generate() {
+            const qty = document.getElementById('qty').value;
+            const country = document.getElementById('country').value;
+            const domSelect = document.getElementById('domain').value;
+            const container = document.getElementById('emailContainer');
+            container.innerHTML = ""; currentEmails = []; copiedMails.clear();
+
+            for (let i = 0; i < qty; i++) {
+                const cat = nameData[country][Math.floor(Math.random() * nameData[country].length)];
+                const first = cat.f[Math.floor(Math.random() * cat.f.length)];
+                const last = cat.l[Math.floor(Math.random() * cat.l.length)];
+                let user = first + "." + last;
+                while(user.length < 16) { user += Math.floor(Math.random() * 9); }
+                if(user.length > 20) user = user.substring(0, 20);
+                let finalDom = domSelect === "random" ? ["gmail.com","yahoo.com","outlook.com"][Math.floor(Math.random()*3)] : domSelect;
+                const email = user + "@" + finalDom;
+                currentEmails.push(email);
+                const div = document.createElement('div');
+                div.className = "email-item";
+                div.innerHTML = `<span class="email-text">${email}</span><button class="copy-btn" onclick="smartCopy('${email}', this)">COPY</button>`;
+                container.appendChild(div);
+            }
+        }
+
+        function smartCopy(email, btn) {
+            if (copiedMails.has(email)) { alert("Already copied!"); return; }
+            navigator.clipboard.writeText(email).then(() => {
+                copiedMails.add(email); btn.innerText = "COPIED"; btn.classList.add("copied");
+                if (navigator.vibrate) navigator.vibrate(50);
+            });
+        }
+
+        function copyAll() {
+            if (currentEmails.length === 0) { alert("Generate emails first!"); return; }
+            navigator.clipboard.writeText(currentEmails.join('\n')).then(() => {
+                const btn = document.getElementById('copyAllBtn');
+                btn.innerText = "ALL EMAILS COPIED!";
+                setTimeout(() => { btn.innerText = "Copy All Emails"; }, 2000);
+            });
+        }
+        window.onload = generate;
+    </script>
+</body>
+</html>
